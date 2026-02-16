@@ -14,6 +14,25 @@ Run the following command in your terminal:
 docker run -d --name semantick --restart always -p 5000:5000 -v ./data:/app/data ghcr.io/semantick-io/app:latest
 ```
 
+For Ollama support:
+
+Run this first so SemanticK can talk to Ollama (only needed for Linux users):
+```bash
+sudo mkdir -p /etc/systemd/system/ollama.service.d
+sudo tee /etc/systemd/system/ollama.service.d/override.conf <<EOF
+[Service]
+Environment="OLLAMA_HOST=0.0.0.0"
+Environment="OLLAMA_ORIGINS=*"
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+```
+
+The run this:
+```
+docker run -d --name semantick --restart always -p 5000:5000 --add-host=host.docker.innternal:host-gateway -v ./data:/app/data ghcr.io/semantick-io/app:latest
+```
+
 ### Configuration Details
 
 | Parameter | Description |
