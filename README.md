@@ -11,13 +11,7 @@ The fastest way to get SemanticK running is using our official Docker image.
 Run the following command in your terminal:
 
 ```bash
-docker run -d \
-  --name semantick \
-  --restart always \
-  -p 5000:5000 \
-  -v ./data:/app/data \
-  -e SECRET_KEY="your-random-secret-key" \
-  ghcr.io/semantick-io/app:latest
+docker run -d --name semantick --restart always -p 5000:5000 -v ./data:/app/data ghcr.io/semantick-io/app:latest
 ```
 
 ### Configuration Details
@@ -26,9 +20,8 @@ docker run -d \
 | :--- | :--- |
 | `-p 5000:5000` | Access the UI at `http://localhost:5000` |
 | `-v ./data:/app/data` | Persists your chat history in a local `data` directory |
-| `-e SECRET_KEY` | Enter any random string here that will be used as a secret key to encrypt your API keys in the browser storage |
-| `-e SERPERAPI_API_KEY` | **Optional.** The Serper Google search API key for the web search plugin |
-| `ghcr.io/semantick-io/app:latest` | The official SemanticK image |
+| `-e SECRET_KEY` | **Optional.** But for better security it's recommended that you enter a random string here to override the default secret key. That will be used as a secret key to encrypt your API keys in the browser storage |
+| `-e SERPERAPI_API_KEY` | **Optional.** The [Serper Google search API key](https://serper.dev) for the web search plugin |
 
 ## After Installation
 
@@ -39,10 +32,10 @@ docker run -d \
 
 ## Privacy and Security
 
-By default, the self-hosted version runs in **Self-Hosted Mode**:
+- **Complete Offline Support**: If you are using local LLM with BYOK, you don't even need to connect to the internet to run SemanticK and still let your local LLM to use all our built-in plugins that do not require internet access like sessions search, charting and more!
 - **No Token Limits**: You are only limited by your own API provider's quotas.
 - **Local Encryption**: All API keys you enter are encrypted using your `SECRET_KEY`
 
 ---
 
-Visit our main page for more details [https://semantick.io](https://semantick.io/landing?lang=en).
+Visit [https://semantick.io](https://semantick.io/landing?lang=en) to learn SemanticK's capabilities or try out our cloud version.
