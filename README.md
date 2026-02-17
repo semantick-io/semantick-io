@@ -1,6 +1,12 @@
+<figure>
+  <img style="width:100%" alt="SemanticK: The assistant that actually remembers." src="https://github.com/user-attachments/assets/fb992169-dea9-4d23-8174-8a42151a8b4f" />
+  <figcaption>SemanticK: The assistant that actually remembers.</figcaption>
+</figure>
+
+
 # Self-Hosting SemanticK
 
-SemanticK is designed to be easily self-hostable, giving you full control over your data and the flexibility to use any AI model you choose.
+[SemanticK](https://semantick.io?lang=en) is designed to be easily self-hostable, giving you full control over your data and the flexibility to use any AI model you choose.
 
 ## Quick Start with Docker
 
