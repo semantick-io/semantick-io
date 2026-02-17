@@ -6,7 +6,7 @@
 
 # Self-Hosting SemanticK
 
-[SemanticK](https://semantick.io?lang=en) is designed to be easily self-hostable, giving you full control over your data and the flexibility to use any AI model you choose.
+[SemanticK](https://semantick.io/landing?lang=en) is designed to be easily self-hostable, giving you full control over your data and the flexibility to use any AI model you choose.
 
 ## Quick Start with Docker
 
@@ -63,4 +63,4 @@ docker run -d --name semantick --restart always -p 5000:5000 --add-host=host.doc
 
 ---
 
-Visit [https://semantick.io](https://semantick.io/landing?lang=en) to learn SemanticK's capabilities or try out our cloud version.
+Visit [https://semantick.io](https://semantick.io?lang=en) to try out our cloud version demo.
