@@ -14,13 +14,21 @@ The fastest way to get SemanticK running is using our official Docker image.
 
 ### Running the Image
 
-Run the following command in your terminal:
+To enable all features, including the **Linux Sandbox (Code Execution)** and **Google Drive Integration**, run the following command:
 
 ```bash
-docker run -d --name semantick --restart always -p 5000:5000 -v ./data:/app/data ghcr.io/semantick-io/app:latest
+docker run -d --name semantick --restart always \
+  -p 5000:5000 \
+  -v ./data:/app/data \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -e GOOGLE_CLIENT_ID="your-google-client-id" \
+  -e GOOGLE_CLIENT_SECRET="your-google-client-secret" \
+  ghcr.io/semantick-io/app:latest
 ```
 
-For Ollama support:
+For Ollama support (Linux users):
+
+Run this first to allow the Docker container to communicate with Ollama on the host:
 
 Run this first so SemanticK can talk to Ollama (only needed for Linux users):
 ```bash
@@ -45,8 +53,43 @@ docker run -d --name semantick --restart always -p 5000:5000 --add-host=host.doc
 | :--- | :--- |
 | `-p 5000:5000` | Access the UI at `http://localhost:5000` |
 | `-v ./data:/app/data` | Persists your chat history in a local `data` directory |
-| `-e SECRET_KEY` | **Optional.** But for better security it's recommended that you enter a random string here to override the default secret key. That will be used as a secret key to encrypt your API keys in the browser storage |
-| `-e SERPERAPI_API_KEY` | **Optional.** The [Serper Google search API key](https://serper.dev) for the web search plugin |
+| `-v /var/run/docker.sock:/var/run/docker.sock` | **Required** for the Linux Sandbox (Code Execution) to work. Allows SemanticK to create sibling containers for isolated code execution. |
+| `-e SECRET_KEY` | **Optional.** Recommended random string to encrypt API keys in browser storage. |
+| `-e SERPERAPI_API_KEY` | **Optional.** For the web search plugin ([serper.dev](https://serper.dev)). |
+| `-e GOOGLE_CLIENT_ID` | **Optional.** For Google Drive integration. |
+| `-e GOOGLE_CLIENT_SECRET` | **Optional.** For Google Drive integration. |
+| `-e PASSCODES` | **Optional.** A comma-separated list of passcodes to password-protect your instance. |
+| `-e TERMINAL_IMAGE` | **Optional.** The image used for the sandbox. Defaults to `python:3.12-alpine`. For better support, use `ghcr.io/semantick-io/app-terminal:latest`. |
+
+## Advanced Features
+
+### Linux Sandbox (Code Execution)
+
+SemanticK uses Docker to run code in an isolated environment. This requires mounting the host's Docker socket (`/var/run/docker.sock`). 
+
+When a user executes code or uses a tool that requires a terminal, SemanticK will:
+1. Create a sibling container named `semantick-<id>`.
+2. Execute the code within that container.
+3. Automatically clean up or stop the container after inactivity.
+
+**Security Note:** Mounting `docker.sock` gives the container significant privileges over the host. Ensure you trust the environment where you are running SemanticK.
+
+### Google Drive Integration
+
+To enable Google Drive integration:
+1. Create a project in the [Google Cloud Console](https://console.cloud.google.com/).
+2. Enable the **Google Drive API**.
+3. Create **OAuth 2.0 Client IDs** (Web application).
+4. Add the following to the **Authorized redirect URIs** (adjust host/protocol to match your deployment):
+   - `http://localhost:5000/signin-google` (regular Google sign-in)
+   - `http://localhost:5000/signin-google-drive` (Google Drive permission grant)
+5. Provide the `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` as environment variables.
+
+Once configured, you can mount your Google Drive directly into the Linux Sandbox for seamless file manipulation.
+
+Notes:
+- If you serve SemanticK behind a reverse proxy or on HTTPS, use the external origin in the redirect URIs (e.g. `https://your.domain/signin-google` and `https://your.domain/signin-google-drive`).
+- Both redirect URIs are required: the app performs a standard Google login first, and only asks for Drive scope when you choose to sync Google Drive.
 
 ## After Installation
 
