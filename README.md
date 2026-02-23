@@ -58,7 +58,6 @@ docker run -d --name semantick --restart always -p 5000:5000 --add-host=host.doc
 | `-e SERPERAPI_API_KEY` | **Optional.** For the web search plugin ([serper.dev](https://serper.dev)). |
 | `-e GOOGLE_CLIENT_ID` | **Optional.** For Google Drive integration. |
 | `-e GOOGLE_CLIENT_SECRET` | **Optional.** For Google Drive integration. |
-| `-e PASSCODES` | **Optional.** A comma-separated list of passcodes to password-protect your instance. |
 | `-e TERMINAL_IMAGE` | **Optional.** The image used for the sandbox. Defaults to `python:3.12-alpine`. For better support, use `ghcr.io/semantick-io/app-terminal:latest`. |
 
 ## Advanced Features
