@@ -1,8 +1,7 @@
 <figure>
-  <img style="width:100%" alt="SemanticK: The assistant that actually remembers." src="https://github.com/user-attachments/assets/fb992169-dea9-4d23-8174-8a42151a8b4f" />
-  <figcaption>SemanticK: The assistant that actually remembers.</figcaption>
+  <img style="width:100%" alt="SemanticK: The assistant that actually remembers." src="https://semantick.io/uploads/0bbad4e7-f029-4eda-8471-4dcdd8c1229e.png" />
+  <figcaption>SemanticK: The mini AI-OS that runs on your browser and syncs with your Google Drive</figcaption>
 </figure>
-
 
 # Self-Hosting SemanticK
 
