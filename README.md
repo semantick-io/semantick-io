@@ -13,7 +13,17 @@ The fastest way to get SemanticK running is using our official Docker image.
 
 ### Running the Image
 
-To enable all features, including the **Linux Sandbox (Code Execution)** and **Google Drive Integration**, run the following command:
+Quick Start:
+
+```bash
+docker run -d --name semantick --restart always \
+  -p 5000:5000 \
+  -v ./data:/app/data \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  semantick/app:latest
+```
+
+To include **Google Drive Integration**, run the following command (make sure you have enabled Google Drive access in your Google Cloud Console):
 
 ```bash
 docker run -d --name semantick --restart always \
@@ -22,7 +32,7 @@ docker run -d --name semantick --restart always \
   -v /var/run/docker.sock:/var/run/docker.sock \
   -e GOOGLE_CLIENT_ID="your-google-client-id" \
   -e GOOGLE_CLIENT_SECRET="your-google-client-secret" \
-  ghcr.io/semantick-io/app:latest
+  semantick/app:latest
 ```
 
 For Ollama support (Linux users):
